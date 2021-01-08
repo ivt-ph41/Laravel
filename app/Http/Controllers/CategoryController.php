@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        echo 'test rebase';
+        echo 'this is list cate page';
     }
 
     /**
@@ -24,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return 'this is create page cate';
     }
 
     /**

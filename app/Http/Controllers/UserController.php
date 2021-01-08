@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use URL;
+use App\User;
 
 class UserController extends Controller
 {
@@ -24,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return redirect()->route('users.index');
     }
 
     /**
@@ -35,7 +36,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //code validate data
     }
 
     /**
@@ -44,9 +45,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        return 'this is user '. $id;
+        // dd($user);
+        // $user = App\User::find($id);// select * from users where id=1 limit 1;
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -89,8 +92,9 @@ class UserController extends Controller
         $email = $request->email;
         //query ktra email cos trong DB 
         //taoj link reset pass
-        $link = URL::temporarySignedRoute('users.reset-pass',\Carbon\Carbon::now()->addMinute(1), $id);
-        dd($link);
+        // $link = URL::temporarySignedRoute('users.reset-pass',\Carbon\Carbon::now()->addMinute(1), $id);
+        // dd($link);
+        return redirect()->back()->with(['error' => 'validate fails']);
     }
 
     public function resetPass(Request $request , $id){

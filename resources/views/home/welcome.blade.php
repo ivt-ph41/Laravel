@@ -81,7 +81,8 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Laravel Home 
+                    <p>{{ $ab. $cd }}</p>
                 </div>
 
                 <div class="links">

@@ -12,7 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+        $message= 'hello world';
+        $a =10;
+    return view('home.welcome', ['ab'=>$message, 'cd'=>$a]);
 });
 
 // Route::get('/users', 'UserController@index')->name('users.index');
@@ -34,3 +36,5 @@ Route::post('users/{id}/forgot-pass', 'UserController@sendEmailResetPass')
 Route::get('/users/{id}/password-reset', 'UserController@resetPass')
         ->name('users.reset-pass')
         ->middleware('signed');
+Route::resource('categories', 'CategoryController');
+Route::resource('users', 'UserController');
