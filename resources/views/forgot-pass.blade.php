@@ -1,6 +1,9 @@
 @extends('layouts.master')
 @section('title', 'Forgot pass page')
 @section('content')
+@foreach($categories as $item)
+<p>{{ $item['name'] }}</p>
+@endforeach
 <h1>Input your email</h1>
 @if(session()->has('error'))
  <p style="color: red">{{ session()->get('error') }}</p>

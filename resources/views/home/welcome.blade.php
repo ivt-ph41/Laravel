@@ -84,7 +84,9 @@
                     Laravel Home 
                     <p>{{ $ab. $cd }}</p>
                 </div>
-
+                @foreach($categories as $item)
+                <p>{{ $item['name'] }}</p>
+                @endforeach
                 <div class="links">
                     <a href="{{ route('admin.users.index') }}">List User</a>
                     <a href="{{ route('categories.index') }}">List Cate</a>

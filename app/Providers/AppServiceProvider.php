@@ -23,6 +23,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $categories = [
+            ['name' => 'apple'],
+            ['name' => 'samsung']
+        ];
+        $abc=10;
+        // view()->share('categories', $categories );
+        view()->composer(['forgot-pass', 'home.*'], function($view)  use ($categories, $abc) {
+            // $categories = [
+            //     ['name' => 'apple'],
+            //     ['name' => 'samsung']
+            // ];
+            $view->with('categories', $categories);
+        });
     }
 }

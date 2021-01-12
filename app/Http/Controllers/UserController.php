@@ -15,6 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        $categories= Category::all();
         return 'this is list user page';
     }
 
@@ -25,6 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        $categories= Category::all();
         return redirect()->route('users.index');
     }
 
