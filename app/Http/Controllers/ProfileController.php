@@ -14,7 +14,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+       $profile=  Profile::getAllUserOver20(1,2);
     }
 
     /**
