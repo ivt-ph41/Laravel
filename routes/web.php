@@ -11,16 +11,9 @@
 |
 */
 
-Route::get('/{name}/{email}', function ($name, $email) {
-        // \DB::enableQueryLog();
-        // $user = \DB::select('select * from users where username = ? or email = ? ',[$name, $email]);
-        $users = \DB::table('users')
-                        ->join('profiles', function($join){
-                                $join->on('users.id', '=', 'profiles.user_id');
-                        })->get();
-        // dd(\DB::getQueryLog());
-        dd($user);
-});
+Route::get('users/restore' , 'UserController@recovery');
+
+
 
 Route::get('/test-join', function () {
         \DB::enableQueryLog();
@@ -85,3 +78,13 @@ Route::get('/users/{id}/password-reset', 'UserController@resetPass')
         ->middleware('signed');
 Route::resource('categories', 'CategoryController');
 Route::resource('users', 'UserController');
+Route::get('/{name}/{email}', function ($name, $email) {
+        // \DB::enableQueryLog();
+        // $user = \DB::select('select * from users where username = ? or email = ? ',[$name, $email]);
+        $users = \DB::table('users')
+                        ->join('profiles', function($join){
+                                $join->on('users.id', '=', 'profiles.user_id');
+                        })->get();
+        // dd(\DB::getQueryLog());
+        dd($user);
+});

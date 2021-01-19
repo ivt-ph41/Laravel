@@ -14,9 +14,14 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $categories= Category::all();
-        return 'this is list user page';
+    {   \DB::enableQueryLog();
+
+        // $users = User::withTrashed()->get();
+        $users = User::with('profile')->get();
+        dd($users);
+        // $users = User::onlyTrashed()->get();
+        // dd(\DB::getQueryLog());
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -47,8 +52,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show( $id)
     {
+        $user = User::with('profile')->find($id);
+        dd($user->profile->address);
         // dd($user);
         // $user = App\User::find($id);// select * from users where id=1 limit 1;
         return view('users.show', compact('user'));
@@ -85,7 +92,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        \DB::enableQueryLog();
+        User::find($id)->delete();
+        // User::withTrashed()->find($id)->forceDelete();
+        dd(\DB::getQueryLog());
+        return 'success';
     }
     public function forgotPass(){
         return view('forgot-pass');
@@ -101,5 +112,12 @@ class UserController extends Controller
 
     public function resetPass(Request $request , $id){
         return view('reset-pass');
+    }
+    public function recovery(){
+
+        $user= User::onlyTrashed()->whereIn('id', [1,2,3])->restore();
+        // $user= User::withTrashed()->find($id);
+        // $user->restore();
+        return 'success';
     }
 }
