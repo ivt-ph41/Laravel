@@ -4,6 +4,7 @@
 use App\User;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
+use App\Country;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,11 +18,13 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(User::class, function (Faker $faker) {
+    $listCountryID = Country::pluck('id');
     return [
         'username' => $faker->name,
         'password' => bcrypt('1322434'),
         'phone' => $faker->phoneNumber,
         'email' => $faker->unique()->email,
         'gender' => rand(0,1),
+        'country_id'=> $faker->randomElement($listCountryID)
     ];
 });

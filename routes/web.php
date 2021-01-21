@@ -78,13 +78,23 @@ Route::get('/users/{id}/password-reset', 'UserController@resetPass')
         ->middleware('signed');
 Route::resource('categories', 'CategoryController');
 Route::resource('users', 'UserController');
-Route::get('/{name}/{email}', function ($name, $email) {
-        // \DB::enableQueryLog();
-        // $user = \DB::select('select * from users where username = ? or email = ? ',[$name, $email]);
-        $users = \DB::table('users')
-                        ->join('profiles', function($join){
-                                $join->on('users.id', '=', 'profiles.user_id');
-                        })->get();
-        // dd(\DB::getQueryLog());
-        dd($user);
-});
+// Route::get('/{name}/{email}', function ($name, $email) {
+//         // \DB::enableQueryLog();
+//         // $user = \DB::select('select * from users where username = ? or email = ? ',[$name, $email]);
+//         $users = \DB::table('users')
+//                         ->join('profiles', function($join){
+//                                 $join->on('users.id', '=', 'profiles.user_id');
+//                         })->get();
+//         // dd(\DB::getQueryLog());
+//         dd($user);
+// });
+
+Route::get('/users/{id}/set-role/{roleID}', 'UserController@setRole');
+Route::get('/users/{id}/delete-role/{roleID?}', 'UserController@deleteRole');
+Route::get('/users/{id}/sync-role/{roleID}', 'UserController@syncRole');
+Route::get('/users/{id}/roles', 'UserController@getRoles');
+Route::get('/countries/{id}/posts', 'CountryController@listPosts');
+Route::get('/countries/{id}', 'CountryController@show');
+Route::get('/products/{id}/images', 'ProductController@getImages');
+Route::get('/posts/{id}/images', 'PostController@getImages');
+Route::get('/images/{id}', 'ImageController@getOwner');

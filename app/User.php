@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'email', 'password', 'gender', 'phone', 'country_id'
     ];
 
     /**
@@ -40,5 +40,19 @@ class User extends Authenticatable
 
     public function profile(){
         return $this->hasOne('App\Profile');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role');
+    }
+    public function country()
+    {
+        return $this->belongsTo('App\Country');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
     }
 }

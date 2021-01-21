@@ -120,4 +120,31 @@ class UserController extends Controller
         // $user->restore();
         return 'success';
     }
+
+    public function setRole($id, $roleID)
+    {
+        $roleID = explode(',', $roleID);
+        $user = User::find($id);
+        $user->roles()->attach($roleID);
+        return 'success';
+    }
+    public function getRoles($id)
+    {
+        $roles = User::find($id)->roles;
+        dd($roles->toArray());
+    }
+    public function deleteRole($id, $roleID= null)
+    {
+        $roleID = $roleID ? explode(',', $roleID) : null;   
+        $user = User::find($id);
+        $user->roles()->detach($roleID);
+        return 'success';
+    }
+    public function syncRole($id, $roleID)
+    {
+        $roleID = explode(',', $roleID);   
+        $user = User::find($id);
+        $user->roles()->sync($roleID);
+        return 'success';
+    }
 }
