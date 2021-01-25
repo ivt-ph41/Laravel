@@ -64,7 +64,7 @@ class CountryController extends Controller
             'users.posts' => function ($query) {
                 return $query->where('user_id', '>', 10);
             }
-        ])->find($id);
+        ])->select('countries.*', 'users.username', 'users.email')->find($id);
         dd(\DB::getQueryLog());
         dd($countries->toArray());
         // dd($countries->users[0]->posts[0]->content);

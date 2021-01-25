@@ -12,9 +12,26 @@
 */
 
 Route::get('users/restore' , 'UserController@recovery');
+// Route::get('users/store' , function(){
+//         $data = [
+//                 'username' => 'Quangg',
+//                 'email' => 'add33@gmail.com',
+//                 'password' => bcrypt('1111111'),
+//                 'gender' => 1,
+//                 'phone' => '3456567553',
+//                 'country_id' => 1
+//         ];
+//         \App\User::create($data);
+//         return 'success';
+// });
 
 
-
+Route::get('/set-location', function(\Illuminate\Http\Request $request) {
+        $locate = $request->lang;
+        // app()->setLocale($locate);
+        session(['my_locale' => $locate]);
+        return redirect()->back();
+});
 Route::get('/test-join', function () {
         \DB::enableQueryLog();
         // $user = \DB::select('select * from users where username = ? or email = ? ',[$name, $email]);

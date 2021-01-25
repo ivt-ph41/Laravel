@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use URL;
 use App\User;
+use App\Http\Requests\CreateUserRequest;
 
 class UserController extends Controller
 {
@@ -31,8 +32,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        $categories= Category::all();
-        return redirect()->route('users.index');
+        // $categories= Category::all();
+        // return redirect()->route('users.index');
+        return view('users.create');
     }
 
     /**
@@ -41,9 +43,20 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        //code validate data
+        // $request->validate([
+        //     'username' => 'required|max:10|min:3',
+        //     // 'username' => ['required','max:10','min:3']
+        //     'email' => 'required|email|unique:users,email',
+        //     'gender' => 'required|integer',
+        //     'phone' => 'required|string',
+        //     'password' => 'required|numeric|min:6'
+        // ]);
+        $data =$request->all();
+        $data['password'] = bcrypt($data['password']);
+        User::create($data);
+        return 'success';
     }
 
     /**
