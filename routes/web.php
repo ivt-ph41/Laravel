@@ -10,7 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/', function(){
+        return view('welcome');
+});
 Route::get('users/restore' , 'UserController@recovery');
 // Route::get('users/store' , function(){
 //         $data = [
@@ -79,7 +81,7 @@ Route::get('/test-skip-take', function(){
 Route::group(['prefix' => 'admin',
               'as' => 'admin.',
               'namespace' => 'User',
-            //   'middleware' => 'isAdmin'
+              'middleware' => ['is.admin']
 ], function(){ 
 
     Route::get('/users', 'UserController@index')->name('users.index');
@@ -94,6 +96,7 @@ Route::get('/users/{id}/password-reset', 'UserController@resetPass')
         ->name('users.reset-pass')
         ->middleware('signed');
 Route::resource('categories', 'CategoryController');
+Route::get('/users/{id}/edit', 'UserController@edit')->middleware('is.owner');
 Route::resource('users', 'UserController');
 // Route::get('/{name}/{email}', function ($name, $email) {
 //         // \DB::enableQueryLog();
@@ -111,7 +114,10 @@ Route::get('/users/{id}/delete-role/{roleID?}', 'UserController@deleteRole');
 Route::get('/users/{id}/sync-role/{roleID}', 'UserController@syncRole');
 Route::get('/users/{id}/roles', 'UserController@getRoles');
 Route::get('/countries/{id}/posts', 'CountryController@listPosts');
-Route::get('/countries/{id}', 'CountryController@show');
+Route::get('/countries/{id}', 'CountryController@show')->middleware('is.admin');
 Route::get('/products/{id}/images', 'ProductController@getImages');
 Route::get('/posts/{id}/images', 'PostController@getImages');
 Route::get('/images/{id}', 'ImageController@getOwner');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

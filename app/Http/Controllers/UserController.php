@@ -9,6 +9,11 @@ use App\Http\Requests\CreateUserRequest;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        // $this->middleware('is.admin')->except('index','show');
+        $this->middleware('is.owner')->only('show');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +24,7 @@ class UserController extends Controller
 
         // $users = User::withTrashed()->get();
         $users = User::with('profile')->get();
-        dd($users);
+        // dd($users);
         // $users = User::onlyTrashed()->get();
         // dd(\DB::getQueryLog());
         return view('users.index', compact('users'));
@@ -68,7 +73,7 @@ class UserController extends Controller
     public function show( $id)
     {
         $user = User::with('profile')->find($id);
-        dd($user->profile->address);
+        // dd($user);
         // dd($user);
         // $user = App\User::find($id);// select * from users where id=1 limit 1;
         return view('users.show', compact('user'));
@@ -82,7 +87,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return 'edit page';
     }
 
     /**

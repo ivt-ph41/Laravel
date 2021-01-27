@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return 'this is list user in User ';
+        return 'this is list user in Admin page ';
     }
 
     /**

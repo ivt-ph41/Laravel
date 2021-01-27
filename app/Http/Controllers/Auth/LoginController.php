@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -35,5 +36,33 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function showLoginForm()
+    {
+        return view('users.login');
+    }
+    public function login(Request $request)
+    {
+        $data= $request->only('email','password');
+        if (\Auth::attempt($data)) {
+            $request->session()->regenerate();
+            // $user = \Auth::user();
+            // // dd($user);
+            // $roles= $user->roles->pluck('id')->all();
+            // // dd($roles);
+            // if (in_array(Role::ADMIN_ROLE, $roles)){
+            //     return redirect()->route('admin.dashboard');
+            // }
+            return redirect('home');
+        }
+        return redirect()->back()->withInput()
+                    ->with(['error' => 'Wrong email or password !']);
+    }
+    
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+        return redirect('/');
     }
 }
