@@ -73,6 +73,7 @@ class UserController extends Controller
     public function show( $id)
     {
         $user = User::with('profile')->find($id);
+        // return response()->json($user, 200);
         // dd($user);
         // dd($user);
         // $user = App\User::find($id);// select * from users where id=1 limit 1;

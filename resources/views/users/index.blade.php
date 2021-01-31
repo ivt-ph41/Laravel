@@ -1,6 +1,9 @@
 @extends('layouts.master')
 @section('title', 'List User')
 @section('content')
+<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+dffdfd
+</div>
 <table class="table table-bordered">
     <thead>
       <tr>
